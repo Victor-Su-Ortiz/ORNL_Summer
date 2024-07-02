@@ -11,7 +11,18 @@ search:
   filter_duplicated: true
   filter_failures: min
   initial_point_generator: random
-  initial_points: null
+  initial_points:
+  - activation1: relu
+    activation2: sigmoid
+    activation3: sigmoid
+    activation4: softmax
+    dropout_rate: 0.5
+    num_epochs: 50
+    optimizer: adam
+    units1: 128
+    units2: 64
+    units3: 32
+    units4: 10
   kappa: 1.96
   kwargs: {}
   log_dir: .

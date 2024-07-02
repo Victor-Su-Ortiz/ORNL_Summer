@@ -7,11 +7,7 @@ import torch.optim as optim
 from torch.utils.data.dataset import random_split
 from torch_geometric.nn import GraphConv, global_mean_pool
 
-
-
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-
 
 class GCNNet_mse(torch.nn.Module):
     def __init__(self, num_node_features, hp):

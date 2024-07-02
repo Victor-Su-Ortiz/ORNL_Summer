@@ -1,6 +1,8 @@
 calls:
 - max_evals: 25
   timeout: null
+- max_evals: 5
+  timeout: null
 search:
   acq_func: UCBd
   acq_optimizer: auto
@@ -12,17 +14,12 @@ search:
   filter_failures: min
   initial_point_generator: random
   initial_points:
-  - activation1: relu
-    activation2: sigmoid
-    activation3: sigmoid
-    activation4: softmax
+  - activation: relu
+    batch_size: 32
     dropout_rate: 0.5
+    learning_rate: 0.001
     num_epochs: 50
-    optimizer: adam
-    units1: 128
-    units2: 64
-    units3: 32
-    units4: 10
+    units: 32
   kappa: 1.96
   kwargs: {}
   log_dir: .
@@ -40,33 +37,28 @@ search:
     forbiddens: []
     hyperparameters:
     - choices:
+      - elu
+      - gelu
+      - hard_sigmoid
+      - linear
       - relu
+      - selu
       - sigmoid
+      - softplus
+      - softsign
+      - swish
+      - tanh
       default: relu
-      name: activation1
+      name: activation
       type: categorical
       weights: null
-    - choices:
-      - relu
-      - sigmoid
-      default: sigmoid
-      name: activation2
-      type: categorical
-      weights: null
-    - choices:
-      - relu
-      - sigmoid
-      default: sigmoid
-      name: activation3
-      type: categorical
-      weights: null
-    - choices:
-      - softmax
-      - sigmoid
-      default: softmax
-      name: activation4
-      type: categorical
-      weights: null
+    - default: 32
+      log: true
+      lower: 8
+      name: batch_size
+      q: null
+      type: uniform_int
+      upper: 256
     - default: 0.5
       log: false
       lower: 0.0
@@ -74,6 +66,13 @@ search:
       q: null
       type: uniform_float
       upper: 0.6
+    - default: 0.001
+      log: true
+      lower: 1.0e-05
+      name: learning_rate
+      q: null
+      type: uniform_float
+      upper: 0.01
     - default: 50
       log: false
       lower: 10
@@ -81,41 +80,13 @@ search:
       q: null
       type: uniform_int
       upper: 100
-    - choices:
-      - adam
-      - sgd
-      default: adam
-      name: optimizer
-      type: categorical
-      weights: null
-    - default: 128
+    - default: 32
       log: false
-      lower: 64
-      name: units1
-      q: null
-      type: uniform_int
-      upper: 256
-    - default: 64
-      log: false
-      lower: 32
-      name: units2
+      lower: 8
+      name: units
       q: null
       type: uniform_int
       upper: 128
-    - default: 32
-      log: false
-      lower: 16
-      name: units3
-      q: null
-      type: uniform_int
-      upper: 64
-    - default: 10
-      log: false
-      lower: 4
-      name: units4
-      q: null
-      type: uniform_int
-      upper: 32
     json_format_version: 0.4
     python_module_version: 0.6.1
   random_state: null
